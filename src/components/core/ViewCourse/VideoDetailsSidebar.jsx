@@ -20,7 +20,7 @@ export default function VideoDetailsSidebar({ setReviewModal }) {
   } = useSelector((state) => state.viewCourse)
 
   useEffect(() => {
-    ;(() => {
+    (() => {
       if (!courseSectionData.length) return
       const currentSectionIndx = courseSectionData.findIndex(
         (data) => data._id === sectionId

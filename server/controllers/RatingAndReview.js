@@ -19,7 +19,7 @@ exports.createRating = async (req, res) => {
         if(!courseDetails) {
             return res.status(404).json({
                 success:false,
-                message:'Student is not enrolled in the course',
+                message:'Student is not enrolled the course',
             });
         }
         //check if user already reviewed the course

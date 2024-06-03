@@ -43,20 +43,20 @@ export const getAllCourses = async () => {
 
 export const fetchCourseDetails = async (courseId) => {
   const toastId = toast.loading("Loading...")
-  //   dispatch(setLoading(true));
+    // dispatch(setLoading(true));
   let result = null
   try {
-    const response = await apiConnector("GET", COURSE_DETAILS_API, {
+    const response = await apiConnector("POST", COURSE_DETAILS_API, {
       courseId,
     })
-    console.log("COURSE_DETAILS_API API RESPONSE............", response)
+    console.log("COURSE_DETAILS_API API RESPONSE.......", response)
 
     if (!response.data.success) {
       throw new Error(response.data.message)
     }
     result = response.data
   } catch (error) {
-    console.log("COURSE_DETAILS_API API ERROR............", error)
+    console.log("COURSE_DETAILS_API API ERROR......", error)
     result = error.response.data
     // toast.error(error.response.data.message);
   }
@@ -311,7 +311,7 @@ export const getFullDetailsOfCourse = async (courseId, token) => {
   let result = null
   try {
     const response = await apiConnector(
-      "GET",
+      "POST",
       GET_FULL_COURSE_DETAILS_AUTHENTICATED,
       {
         courseId,
@@ -320,14 +320,14 @@ export const getFullDetailsOfCourse = async (courseId, token) => {
         Authorization: `Bearer ${token}`,
       }
     )
-    console.log("COURSE_FULL_DETAILS_API API RESPONSE............", response)
+    console.log("COURSE_FULL_DETAILS_API API RESPONSE.....", response)
 
     if (!response.data.success) {
       throw new Error(response.data.message)
     }
     result = response?.data?.data
   } catch (error) {
-    console.log("COURSE_FULL_DETAILS_API API ERROR............", error)
+    console.log("COURSE_FULL_DETAILS_API API ERROR.......sdkjnfjkdnjfnjskadf.....", error)
     result = error.response.data
     // toast.error(error.response.data.message);
   }
@@ -380,7 +380,7 @@ export const createRating = async (data, token) => {
     success = true
   } catch (error) {
     success = false
-    console.log("CREATE RATING API ERROR............", error)
+    console.log("CREATE RATING API ERROR..........", error)
     toast.error(error.message)
   }
   toast.dismiss(toastId)

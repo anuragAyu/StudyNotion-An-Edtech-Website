@@ -3,7 +3,7 @@ import Footer from '../components/common/Footer'
 import { useParams } from 'react-router-dom'
 import { apiConnector } from '../services/apiconnector';
 import { categories } from '../services/apis';
-import { getCatalogaPageData } from '../services/operations/pageAndComponentData';
+import { getCatalogPageData } from '../services/operations/pageAndComponentData';
 import Course_Card  from '../components/core/Catalog/Course_Card';
 import CourseSlider from '../components/core/Catalog/CourseSlider';
 import { useSelector } from "react-redux"
@@ -22,8 +22,7 @@ const Catalog = () => {
         const getCategories = async() => {
             const res = await apiConnector("GET", categories.CATEGORIES_API);
             const category_id = 
-            res?.data?.data?.filter((ct) => ct.name.split(" ").join("-").toLowerCase() === catalogName)[0].
-            _id;
+            res?.data?.data?.filter((ct) => ct.name.split(" ").join("-").toLowerCase() === catalogName)[0]._id;
             setCategoryId(category_id);
         }
         getCategories();
@@ -32,7 +31,7 @@ const Catalog = () => {
     useEffect(() => {
         const getCategoryDetails = async() => {
             try{
-                const res = await getCatalogaPageData(categoryId);
+                const res = await getCatalogPageData(categoryId);
                 console.log("Printing res: ", res);
                 setCatalogPageData(res);
             }
@@ -45,16 +44,16 @@ const Catalog = () => {
         }
     },[categoryId]);
 
-    // if (loading || !catalogPageData) {
-    //     return (
-    //       <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
-    //         <div className="spinner"></div>
-    //       </div>
-    //     )
-    //   }
-    //   if (!loading && !catalogPageData.success) {
-    //     return <Error />
-    //   }
+    if (loading || !catalogPageData) {
+        return (
+          <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
+            <div className="spinner"></div>
+          </div>
+        )
+      }
+      if (!loading && !catalogPageData.success) {
+        return <Error />
+      }
     
       return (
         <>
@@ -62,7 +61,7 @@ const Catalog = () => {
           <div className=" box-content bg-richblack-800 px-4">
             <div className="mx-auto flex min-h-[260px] max-w-maxContentTab flex-col justify-center gap-4 lg:max-w-maxContent ">
               <p className="text-sm text-richblack-300">
-                {`Home / Catalog / `}
+                {`Home / Catalog /  `}
                 <span className="text-yellow-25">
                   {catalogPageData?.data?.selectedCategory?.name}
                 </span>
@@ -104,7 +103,7 @@ const Catalog = () => {
             </div>
             <div>
               <CourseSlider
-                Courses={catalogPageData?.data?.selectedCategory?.courses}
+                Courses={catalogPageData?.data?.differentCategory?.courses}
               />
             </div>
           </div>
